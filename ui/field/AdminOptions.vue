@@ -24,14 +24,14 @@
 </template>
 
 <script>
-import get from 'lodash.get'
+import { get } from 'lodash'
 import SelectField from '@/Adaptcms/Base/ui/components/Form/SelectField'
 
 export default {
   props: [
     'value',
     'field',
-    'module',
+    'package',
     'errors',
     'fields'
   ],
