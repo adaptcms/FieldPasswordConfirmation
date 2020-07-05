@@ -11,6 +11,25 @@ class FieldPasswordConfirmation extends FieldType
   use EmptyColumnMigrations;
 
   /**
+  * @var array
+  */
+  public $defaultSettings = [
+    'options' => [
+      'is_sortable'        => false,
+      'is_searchable'      => false,
+      'is_required_create' => true,
+      'is_required_edit'   => false
+    ],
+    'action_rules' => [
+      'index'  => false,
+      'create' => true,
+      'edit'   => true,
+      'show'   => false,
+      'search' => false
+    ]
+  ];
+
+  /**
   * @var boolean
   */
   public $shouldNotSetData = true;
@@ -68,5 +87,17 @@ class FieldPasswordConfirmation extends FieldType
     }
 
     return $rules;
+  }
+
+  /**
+  * Create Field Rules
+  *
+  * @return array
+  */
+  public function createFieldRules()
+  {
+    return [
+      'meta.passwordField' => 'required'
+    ];
   }
 }
