@@ -100,4 +100,16 @@ class FieldPasswordConfirmation extends FieldType
       'meta.passwordField' => 'required'
     ];
   }
+
+  /**
+  * Update Field Rules
+  *
+  * @return array
+  */
+  public function updateFieldRules()
+  {
+    return [
+      'meta.passwordField' => 'required'
+    ];
+  }
 }
