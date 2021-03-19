@@ -36,11 +36,15 @@ import SelectField from '@/Adaptcms/Base/ui/components/Form/SelectField'
 
 export default {
   props: [
-    'value',
+    'modelValue',
     'field',
     'package',
     'errors',
     'fields'
+  ],
+
+  emits: [
+    'update:modelValue'
   ],
 
   components: {
@@ -48,7 +52,7 @@ export default {
   },
 
   watch: {
-    value (newVal, oldVal) {
+    modelValue (newVal, oldVal) {
       if ((newVal !== oldVal) && get(newVal, 'passwordField', null)) {
         this.passwordField = newVal.passwordField
       }
@@ -56,7 +60,7 @@ export default {
 
     passwordField (newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.$emit('input', { passwordField: newVal })
+        this.$emit('update:modelValue', { passwordField: newVal })
       }
     }
   },
@@ -64,16 +68,14 @@ export default {
   computed: {
     hasError () {
       let key = 'meta.passwordField'
-      let errors = get(this.$page, 'props.errors')
 
-      return (typeof errors[key] !== 'undefined')
+      return (typeof this.errors[key] !== 'undefined')
     },
 
     errorsList () {
       let key = 'meta.passwordField'
-      let errors = get(this.$page, 'props.errors')
 
-      return (typeof errors[key] !== 'undefined' ? errors[key] : [])
+      return (typeof this.errors[key] !== 'undefined' ? this.errors[key].messages : [])
     }
   },
 
@@ -85,7 +87,7 @@ export default {
 
   mounted () {
     if (!this.passwordField && get(this.value, 'passwordField', null)) {
-      this.passwordField = this.value.passwordField
+      this.passwordField = this.modelValue.passwordField
     }
   }
 }
